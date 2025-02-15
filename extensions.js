@@ -65,34 +65,34 @@ String.prototype.insertCharsAt = function (chars, position) {
 /////////////////////
 // OBJECT EXTENSIONS:
 /////////////////////
-Object.prototype.size = function () {
-  return Object.keys(this).length;
-};
+// Object.prototype.size = function () {
+//   return Object.keys(this).length;
+// };
 
-Object.prototype.objMap = function (callback) {
-  var obj = {...this};
-  return Object.fromEntries(
-    Object.entries(obj).map(([key, value]) => callback(key, value))
-  );
-};
+// Object.prototype.objMap = function (callback) {
+//   var obj = {...this};
+//   return Object.fromEntries(
+//     Object.entries(obj).map(([key, value]) => callback(key, value))
+//   );
+// };
 
-Object.prototype.clone = function () {
-  return { ...this };
-};
+// Object.prototype.clone = function () {
+//   return { ...this };
+// };
 
-Object.prototype.toSerialString = function (skipKeys, joint) {
-  var obj = this;
-  if (obj.size() == 0) return '';
+// Object.prototype.toSerialString = function (skipKeys, joint) {
+//   var obj = this;
+//   if (obj.size() == 0) return '';
 
-  skipKeys = skipKeys ?? [];
+//   skipKeys = skipKeys ?? [];
 
-  return Object.keys(obj).map(function (key) {
-    if (skipKeys.indexOf(key) > -1)
-      return '';
+//   return Object.keys(obj).map(function (key) {
+//     if (skipKeys.indexOf(key) > -1)
+//       return '';
 
-    return `${key}=${obj[key]}`;
-  }).join(joint ?? '&');
-};
+//     return `${key}=${obj[key]}`;
+//   }).join(joint ?? '&');
+// };
 
 // NUMBER EXTENSIONS:
 Number.prototype.number_format = function (decimals, decPoint, thousandsSep) {
