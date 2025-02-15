@@ -69,7 +69,7 @@ Object.prototype.size = function () {
   return Object.keys(this).length;
 };
 
-Object.prototype.map = function (callback) {
+Object.prototype.objMap = function (callback) {
   var obj = {...this};
   return Object.fromEntries(
     Object.entries(obj).map(([key, value]) => callback(key, value))
