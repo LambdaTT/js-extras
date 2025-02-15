@@ -37,7 +37,7 @@ String.prototype.fromCamelCase = function (separator) {
   return $result;
 };
 
-String.prototype.toSlug = function stringToSlug() {
+String.prototype.toSlug = function () {
   var str = this;
   /* info: https://gist.github.com/codeguy/6684588 */
   str = str.replace(/^\s+|\s+$/g, ""); // trim
@@ -70,7 +70,7 @@ Object.prototype.size = function () {
 };
 
 Object.prototype.map = function (callback) {
-  var obj = this;
+  var obj = {...this};
   return Object.fromEntries(
     Object.entries(obj).map(([key, value]) => callback(key, value))
   );
