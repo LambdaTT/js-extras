@@ -8,7 +8,8 @@
  */
 
 'use strict';
-const BUCKET_NAME = 'sindiapp-app';
+const BUCKET_HML_NAME = 'cartappio-app-hml';
+const BUCKET_PROD_NAME = 'cartappio-app-prod';
 const FILE_NAME = 'index.html';
 const HML_TENANTKEY = 'barexemplo';
 
@@ -17,14 +18,17 @@ const { Buffer } = require('buffer');
 
 const s3 = new S3Client({ region: 'us-east-1' }); // Região obrigatória
 
+var isHml = false;
+
 exports.handler = async (event, context, callback) => {
   const request = event.Records[0].cf.request;
   const host = request.headers['host'][0].value;
   const tenant = host.split('.')[0];
-  const manifestUrl = `https://${tenant == HML_TENANTKEY ? 'hml-api' : 'api'}.sindiapp.app.br/api/app/metadata/v1/tenant-manifest?tenant_key=${tenant}`;
+  isHml = tenant == HML_TENANTKEY;
+  const manifestUrl = `https://${isHml ? 'hml-api' : 'api'}.sindiapp.app.br/api/app/metadata/v1/tenant-manifest?tenant_key=${tenant}`;
 
   try {
-    const command = new GetObjectCommand({ Bucket: BUCKET_NAME, Key: FILE_NAME });
+    const command = new GetObjectCommand({ Bucket: isHml ? BUCKET_HML_NAME : BUCKET_PROD_NAME, Key: FILE_NAME });
     const response = await s3.send(command);
 
     const streamToString = (stream) =>
